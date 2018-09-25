@@ -4,29 +4,36 @@
         <script
           src="http://code.jquery.com/jquery-3.2.1.min.js">
         </script>
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     
     <body>
-        <form>
-            Enter A Utah City: <input type="text" id="cityField" value=""><br>
-            Suggestion: <span id="txtHint">Empty</span>
-            <input id="weatherButton" type="submit" value="Submit">
-        </form>
-        <p>City</p>
-        <textarea id="displayCity">No City</textarea>
-        <p>Current Weather</p>
-        <div id="weather">
-            <ul>
-                
-            </ul>
-        </div>
-        
-        <div>
-            <p>StackExchange Question Search</p>
-            <input id="stackInput" type="text">
-            <button id="stackButton">Submit Question</button>
-            <p>Questions</p>
-            <ul id="stackQuestions"></ul>
+        <div class="maincontent" id="header"><h1>REST API Fun!</h1></div>
+        <div class="maincontent">
+            <div id="inner">
+            <h3>Utah Cities Weather</h3>
+            <form>
+                Enter A Utah City: <input type="text" id="cityField" value=""><br>
+                Suggestion: <span id="txtHint">Empty</span>
+                <input id="weatherButton" type="submit" value="Submit">
+            </form>
+            <p>City</p>
+            <textarea id="displayCity">No City</textarea>
+            <p>Current Weather</p>
+            <div id="weather">
+                <ul>
+                    
+                </ul>
+            </div>
+            
+            <div>
+                <h3>StackExchange Question Search</h3>
+                <input id="stackInput" type="text">
+                <button id="stackButton">Submit Question</button>
+                <p>Questions</p>
+                <ul id="stackQuestions"></ul>
+            </div>
+            </div>
         </div>
         <script>
             $(document).ready(function() {

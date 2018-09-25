@@ -1,0 +1,40 @@
+body {
+    background-color: lightblue;
+    font-family: "Arial";
+}
+
+.maincontent {
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    width: 30%;
+    margin: auto;
+}
+
+#header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+input {
+    border-radius: 3px;
+    margin-bottom: 10px;
+    border-color: #8ec3eb;
+}
+
+#inner {
+    width: 50%;
+    margin: 0 auto;
+}
+
+textarea {
+    font-family: "Arial";
+}
+
+#weatherButton, button {
+    background-color: darkgray;
+    color: white;
+    border-radius: 4px;
+    font-family: "Arial";
+    border-color: lightgray;
+}
