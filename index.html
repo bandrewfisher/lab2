@@ -1,10 +1,110 @@
-<!DOCTYPE html>
 <html>
     <head>
-        
+        <title>City Finder</title>
+        <script
+          src="http://code.jquery.com/jquery-3.2.1.min.js">
+        </script>
     </head>
     
     <body>
+        <form>
+            Enter A Utah City: <input type="text" id="cityField" value=""><br>
+            Suggestion: <span id="txtHint">Empty</span>
+            <input id="weatherButton" type="submit" value="Submit">
+        </form>
+        <p>City</p>
+        <textarea id="displayCity">No City</textarea>
+        <p>Current Weather</p>
+        <div id="weather">
+            <ul>
+                
+            </ul>
+        </div>
         
+        <div>
+            <p>StackExchange Question Search</p>
+            <input id="stackInput" type="text">
+            <button id="stackButton">Submit Question</button>
+            <p>Questions</p>
+            <ul id="stackQuestions"></ul>
+        </div>
+        <script>
+            $(document).ready(function() {
+                $("#cityField").keyup(function() {
+                    var url = "http://bioresearch.byu.edu/cs260/jquery/getcity.cgi?q="+$("#cityField").val();
+                    //console.log("Url is " + url);
+                  $.getJSON(url,function(data) {
+                    var everything;
+                    everything = "<ul>";
+                    $.each(data, function(i,item) {
+                      everything += "<li> "+data[i].city;
+                    });
+                    everything += "</ul>";
+                    $("#txtHint").html(everything);
+                  })
+                  .done(function() { //console.log('getJSON request succeeded!'); 
+                  })
+                  .fail(function(jqXHR, textStatus, errorThrown) { 
+                    //console.log('getJSON request failed! ' + textStatus); 
+                    //console.log("incoming "+jqXHR.responseText);
+                  })
+                  .always(function() { //console.log('getJSON request ended!');
+                  });
+                });
+                
+                //On clicking the weather button, put the text from the input
+                //into the textarea
+                $("#weatherButton").click(function(event) {
+                   var cityInput = $("#cityField").val();
+                   $("#displayCity").text(cityInput);
+                   var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?units=imperial"
+                    + "&appid=89e8dca515a4b52d710830cc0ba931ff&q=" + encodeURI(cityInput);
+                    processWeatherRequest(weatherUrl);
+                   event.preventDefault();
+                });
+                
+                $("#stackButton").click(function(event) {
+                    var stackSearch = $("#stackInput").val();
+                   var url="https://api.stackexchange.com/2.2/search?order=desc&sort=activity"
+                    + "&intitle=" + stackSearch + "&site=stackoverflow";
+                    $.ajax({
+                       url: url,
+                       dataType: "json",
+                       success: function(data) {
+                           var questionList = "";
+                           
+                           for(var i=0; i<data.items.length; i++) {
+                               var question = data.items[i].title;
+                               var questionUrl = data.items[i].link;
+                               questionList += "<li><a href='" + questionUrl + "'>" + question + "</a></li>";
+                           }
+                           $("#stackQuestions").html(questionList);
+                       }
+                    });
+                   event.preventDefault(); 
+                });
+                
+            });
+            
+            function processWeatherRequest(url) {
+                
+                $.ajax({
+                    url: url,
+                    dataType: "json",
+                    success: function(data) {
+                        var location = data.name;
+                        var weather = data.weather[0].main;
+                        var temp = data.main.temp;
+                        
+                        var info = "<li>Location: " + location + "</li>";
+                        info += "<li>Weather: " + weather + "</li>";
+                        info += "<li>Temperature: " + temp + " degrees Fahrenheit.</li>";
+                        $("#weather ul").html(info);
+                    }
+                });
+            }
+        </script>
     </body>
+    
+    
 </html>
