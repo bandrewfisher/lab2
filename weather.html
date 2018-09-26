@@ -14,7 +14,10 @@
             <h3>Utah Cities Weather</h3>
             <form>
                 Enter A Utah City: <input type="text" id="cityField" value=""><br>
-                Suggestion: <span id="txtHint">Empty</span>
+                Suggestion: 
+                <br>
+                <span id="txtHint">Empty</span>
+                <br>
                 <input id="weatherButton" type="submit" value="Submit">
             </form>
             <p>City</p>
@@ -37,7 +40,7 @@
         </div>
         <script>
             $(document).ready(function() {
-                $("#cityField").keyup(function() {
+                $("#cityField").keyup(function(event) {
                     var url = "http://bioresearch.byu.edu/cs260/jquery/getcity.cgi?q="+$("#cityField").val();
                     //console.log("Url is " + url);
                   $.getJSON(url,function(data) {
@@ -57,6 +60,10 @@
                   })
                   .always(function() { //console.log('getJSON request ended!');
                   });
+                  
+                  if(event.which == 13) {
+                      $("#weatherButton").click();
+                  }
                 });
                 
                 //On clicking the weather button, put the text from the input
@@ -89,6 +96,12 @@
                        }
                     });
                    event.preventDefault(); 
+                });
+                
+                $("#stackInput").keyup(function(event) {
+                   if(event.which == 13) {
+                       $("#stackButton").click();
+                   } 
                 });
                 
             });

@@ -29,6 +29,7 @@ input {
 
 textarea {
     font-family: "Arial";
+    border-radius: 3px;
 }
 
 #weatherButton, button {
@@ -37,4 +38,8 @@ textarea {
     border-radius: 4px;
     font-family: "Arial";
     border-color: lightgray;
+}
+
+#txtHint, #stackQuestions, #weather {
+    font-size: 13px;
 }
